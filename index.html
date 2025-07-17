@@ -7,6 +7,7 @@
     body {
       margin: 0;
       height: 100vh;
+      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -33,9 +34,71 @@
         0 10px 10px rgba(0,0,0,.2),
         0 20px 20px rgba(0,0,0,.15);
     }
+
+    .heart {
+      position: fixed;
+      width: 15px;
+      height: 15px;
+      background: red;
+      transform: rotate(45deg);
+      top: -20px;
+      animation: fall 5s linear infinite;
+      opacity: 0.8;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -7.5px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -7.5px;
+      top: 0;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
   <h1>anh nhớ em</h1>
+
+  <!-- PHÁT NHẠC NỀN -->
+  <audio autoplay loop>
+    <source src="https://dl.dropboxusercontent.com/scl/fi/n5gs4ye8lh8tz9edgrtwn/lofi-love.mp3?rlkey=2rwgj95et8sn1o8ikiyvbdhi5&dl=0" type="audio/mpeg">
+    Trình duyệt của bạn không hỗ trợ audio.
+  </audio>
+
+  <!-- SCRIPT TRÁI TIM RƠI -->
+  <script>
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+
+    setInterval(createHeart, 200);
+  </script>
 </body>
 </html>
+
